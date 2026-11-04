@@ -8,6 +8,7 @@ let themeToggleButton = document.querySelector(".themeToggleButton");
 let htmlTag = document.getElementById("htmlTag");
 const portfolioFilters = document.querySelectorAll(".portfolioFilters");
 const portfolioItem = document.querySelectorAll(".portfolioItem");
+const scrollToTop = document.getElementById("scrollToTop");
 
 // make the links active when arrived 
 
