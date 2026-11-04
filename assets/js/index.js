@@ -16,6 +16,10 @@ const nextBtn = document.getElementById("next-testimonial");
 const prevBtn = document.getElementById("prev-testimonial");
 const indicatorsContainer = document.getElementById("carousel-indicators");
 
+const settingsSidebarIcon = document.getElementById("settings-toggle-icon");
+const settingsSidebar = document.getElementById("settings-sidebar");
+const closeSettings = document.getElementById("close-settings");
+
 // make the links active when arrived 
 
 document.addEventListener("scroll", function (e) {
@@ -236,3 +240,21 @@ scrollToTop.addEventListener("click", () => {
 
 
 //handle gear icon click
+
+
+//when click open the side menu
+settingsSidebarIcon.addEventListener("click", () => {
+    console.log("clicked")
+    settingsSidebar.classList.remove("translate-x-full");
+    settingsSidebar.classList.add("translate-x-0");
+    settingsSidebarIcon.style.transform = "translateY(-50%) translateX(-665%)"
+
+}) 
+
+// when click on the close button close the side menu
+
+closeSettings.addEventListener("click", () => {
+    settingsSidebar.classList.remove("translate-x-0");
+    settingsSidebar.classList.add("translate-x-full");
+    settingsSidebarIcon.style.transform = "translateY(-50%) translateX(0)"
+})
