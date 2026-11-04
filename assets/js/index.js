@@ -20,6 +20,18 @@ const settingsSidebarIcon = document.getElementById("settings-toggle-icon");
 const settingsSidebar = document.getElementById("settings-sidebar");
 const closeSettings = document.getElementById("close-settings");
 
+const colorsCircles = document.getElementById("theme-colors-grid")
+const resetSettings = document.getElementById("reset-settings")
+const fontOptions = document.querySelectorAll(".font-option")
+
+const colors = [
+    ["#3B82F6", "#06B6D4"],
+    ["#10B981", "#059669"],
+    ["#EC4899", "#F97316"],
+    ["#8B5CF6", "#6366F1"],
+    ["#F59E0B", "#EA580C"],
+    ["#EF4444", "#F43F5E"]
+];
 // make the links active when arrived 
 
 document.addEventListener("scroll", function (e) {
@@ -258,3 +270,56 @@ closeSettings.addEventListener("click", () => {
     settingsSidebar.classList.add("translate-x-full");
     settingsSidebarIcon.style.transform = "translateY(-50%) translateX(0)"
 })
+
+// handle the color theme change
+
+
+function applyColors(c1, c2) {
+    htmlTag.style.setProperty("--color-primary", c1);
+    htmlTag.style.setProperty("--color-secondary", c2);
+    htmlTag.style.setProperty("--color-accent", c1);
+    localStorage.setItem("themeColors", JSON.stringify([c1, c2]));
+}
+
+// create the 6 gradient circles
+colors.forEach(([c1, c2]) => {
+    const circle = document.createElement("button");
+    circle.type = "button";
+    circle.setAttribute("aria-label", `لون ${c1}`);
+    circle.className = "w-12 h-12 rounded-full cursor-pointer transition-transform duration-300 hover:scale-110";
+    circle.style.background = `linear-gradient(135deg, ${c1}, ${c2})`;
+
+    circle.addEventListener("click", () => applyColors(c1, c2));
+
+    colorsCircles.appendChild(circle);
+});
+
+// save last selected colors in local storage
+
+const savedColors = JSON.parse(localStorage.getItem("themeColors"));
+if (savedColors) {
+    applyColors(savedColors[0], savedColors[1]);
+}
+
+// reset button 
+
+resetSettings.addEventListener("click", () => {
+    htmlTag.style.removeProperty("--color-primary");
+    htmlTag.style.removeProperty("--color-secondary");
+    localStorage.removeItem("themeColors");
+    document.body.style.fontFamily = "";
+    localStorage.removeItem("themeFont");
+});
+
+// handle the font change
+
+fontOptions.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.body.style.fontFamily = btn.dataset.font + ", sans-serif";
+        localStorage.setItem("themeFont", btn.dataset.font);
+    });
+});
+
+// save last selected font in local storage
+const savedFont = localStorage.getItem("themeFont");
+if (savedFont) document.body.style.fontFamily = savedFont + ", sans-serif";
