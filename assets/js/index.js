@@ -118,7 +118,7 @@ portfolioFilters.forEach(button => {
 })
 
 
-
+// handle the testimonials carousel
 
 let currentIndex = 0;
 function getVisibleCards() {
@@ -213,3 +213,26 @@ function getVisibleCards() {
 
     createIndicators();
     updateCarousel();
+
+
+
+// hande the scroll to top button
+
+window.addEventListener("scroll", function () {
+    if(window.scrollY >= 652){
+        scrollToTop.classList.remove("opacity-0", "invisible");
+        console.log("show")
+    }else {
+        scrollToTop.classList.add("opacity-0", "invisible");
+    }
+})
+
+scrollToTop.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    })
+})
+
+
+//handle gear icon click
